@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
         indexes ={ @Index(name = "ix_users_email", columnList = "email", unique = true),
         @Index(name = "ix_users_phone", columnList = "phone")})
 public class User {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false, length = 100)
@@ -46,8 +47,10 @@ public class User {
     private LocalDateTime updated_at;
     @Column(name = "deleted_at")
     private LocalDateTime deleted_at;
+    protected User(){}
 
-        public User(Integer id, String name, Gender gender, LocalDate birthday, String phone, String email,String password, boolean deleted, LocalDateTime created_at, LocalDateTime updated_at, LocalDateTime deleted_at) {
+
+    public User(Integer id, String name, Gender gender, LocalDate birthday, String phone, String email,String password, boolean deleted, LocalDateTime created_at, LocalDateTime updated_at, LocalDateTime deleted_at) {
             this.id = id;
         this.name = name;
         this.gender = gender;
@@ -61,8 +64,16 @@ public class User {
         this.deleted_at = deleted_at;
 
     }
-
-    public User(Integer id, Gender gender, LocalDate birthday, String phone, String email, LocalDateTime localDateTime, LocalDateTime localDateTime1) {
+    public User(String name, Gender gender, LocalDate birthday,
+                String phone, String email, String password) {
+        this.name = name;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.deleted = false;
+        this.created_at = LocalDateTime.now();
     }
 
     public Integer getId() {
